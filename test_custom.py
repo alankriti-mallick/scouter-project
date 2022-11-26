@@ -62,14 +62,14 @@ def main(args):
     model.load_state_dict(checkpoint["model"])
 
     result = test(model, device, image)
-    print(result)
+    return result
 
 
 def run_custom_test(image='eight.png', model='resnet18', dataset='MNIST', device='cuda'):
     test_args = argparse.Namespace(image=image, model=model, dataset=dataset, device=device, channel=512, lr=0.0001, lr_drop=70, batch_size=64, weight_decay=0.0001, epochs=10, num_classes='10', img_size=260, pre_trained=True, use_slot=True, use_pre=True, aug=False, grad=False, grad_min_level=0.0, iterated_evaluation_num=1, cal_area_size=False, thop=False, loss_status=1,
                                    freeze_layers=2, hidden_dim=64, slots_per_class='1', power='1', to_k_layer=1, lambda_value='1.', vis=True, vis_id=0, dataset_dir='../PAN/bird_200/CUB_200_2011/CUB_200_2011/', output_dir='saved_model/', pre_dir='pre_model/', num_workers=4, start_epoch=0, resume=False, world_size=1, local_rank=None, dist_url='env://')
 
-    main(test_args)
+    return main(test_args)
 
 
 if __name__ == '__main__':
@@ -77,4 +77,5 @@ if __name__ == '__main__':
         'model training and evaluation script', parents=[get_args_parser()])
     parser.add_argument('--image', default='')
     args = parser.parse_args()
-    main(args)
+    result = main(args)
+    print(result)
