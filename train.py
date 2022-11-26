@@ -84,11 +84,8 @@ def get_args_parser():
 
 def main(args):
     prt.init_distributed_mode(args)
-    # device = torch.device(args.device)
-    print("cpu")
-    
-    print("ss => ", torch.cuda.is_available())
-    device = torch.device("cpu")
+    device = torch.device(args.device)
+    # print("ss => ", torch.cuda.is_available())
 
     model = SlotModel(args)
     print("train model: " + f"{'use slot ' if args.use_slot else 'without slot '}" + f"{'negetive loss' if args.use_slot and args.loss_status != 1 else 'positive loss'}")
