@@ -1,0 +1,11 @@
+# Project exclude paths
+/venv/
+saved_model*
+.idea/
+sloter/vis*/
+data/
+*.pyc
+.vscode/
+scripts/
+temp*
+__pycache__
