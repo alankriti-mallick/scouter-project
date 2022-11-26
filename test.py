@@ -26,7 +26,7 @@ def test(args, model, device, img, image, label, vis_id):
     output = model(torch.unsqueeze(image, dim=0))
     pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
     # print(output[0])
-    print(pred[0][0].int().item())
+    print(pred[0])
 
     #For vis
     image_raw = img
