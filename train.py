@@ -170,7 +170,7 @@ def main(args):
     output_dir = Path(args.output_dir)
 
     if args.resume:
-        checkpoint = torch.load(args.resume, map_location='cpu')
+        checkpoint = torch.load(args.pre_dir, map_location='cpu')
         model_without_ddp.load_state_dict(checkpoint['model'])
         if 'optimizer' in checkpoint and 'lr_scheduler' in checkpoint and 'epoch' in checkpoint:
             optimizer.load_state_dict(checkpoint['optimizer'])
