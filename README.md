@@ -229,3 +229,9 @@ python torchcam_vis.py --dataset CUB200 --model resnest50d --batch_size 150 \
 --num_classes 25 --grad true --use_pre true \
 --dataset_dir ../data/bird_200/CUB_200_2011/CUB_200_2011/
 ```
+
+### To run UI
+
+```bash
+uvicorn api:app --reload
+```
