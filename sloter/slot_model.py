@@ -20,7 +20,7 @@ def load_backbone(args):
         args.model,
         pretrained=args.pre_trained,
         num_classes=args.num_classes)
-    if args.dataset == "MNIST":
+    if args.dataset == "MNIST" or args.dataset == "EMNIST":
         bone.conv1 = nn.Conv2d(1, 64, 3, stride=2, padding=1, bias=False)
     if args.use_slot:
         if args.use_pre:
@@ -117,6 +117,11 @@ class SlotModel(nn.Module):
         output = F.log_softmax(x, dim=1)
 
         if target is not None:
+            print("\n\nTarget = ", target)
+            print("\n\nOutput = ", output)
+            print("\nOutput shape = ", output.shape)
+            print("\n")
+
             if self.use_slot:
                 loss = F.nll_loss(output, target) + self.lambda_value * attn_loss
                 return [output, [loss, F.nll_loss(output, target), attn_loss]]
