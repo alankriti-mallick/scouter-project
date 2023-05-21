@@ -39,7 +39,6 @@ class BT(Dataset):
         label = self.annotations.iloc[index, 1]
         image_path = os.path.join(self.img_dir, str(
             label), self.annotations.iloc[index, 0])
-        Image.open(image_path)
 
         img = Image.open(image_path)
         if img.mode == 'L':
