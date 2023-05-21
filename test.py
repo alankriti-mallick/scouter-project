@@ -145,8 +145,8 @@ def main():
     model = SlotModel(args)
     # Map model to be loaded to specified single gpu.
     checkpoint = torch.load(f"{args.output_dir}/" + model_name, map_location=args.device)
-    for k, v in checkpoint.items():
-        print(k)
+    # for k, v in checkpoint.items():
+    #     print(k)
     model.load_state_dict(checkpoint["model"])
 
     test(args, model, device, image_orl, image, label, vis_id=args.vis_id)
