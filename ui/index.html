@@ -22,37 +22,78 @@
 
       body {
         background-color: #f2f2f2;
-        padding: 1rem;
+        padding: 1rem 1rem 0 1rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
 
       main {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         align-items: center;
         justify-content: center;
+        flex-grow: 1;
       }
 
-      .disease{
-        margin-bottom: 50px;
+      .disease {
+        margin-bottom: 30px;
       }
 
-      .brain-desc{
-        margin-top: 50px;
+      .disease ul {
+        padding: 0;
       }
 
-      .brain-desc h2{
+      .brain-desc {
+        overflow: auto;
+        height: 83vh;
+      }
+
+      .brain-desc::-webkit-scrollbar {
+        width: 5px;
+        background: transparent;
+      }
+
+      .brain-desc::-webkit-scrollbar-thumb {
+        background: rgba(169, 169, 169, 0.489);
+      }
+
+      .brain-desc h2 {
         padding: 15px;
       }
 
-      .brain-desc li{
+      .brain-desc li {
         margin: 10px;
         padding: 10px;
         padding-left: 15px;
         padding-right: 15px;
         border-radius: 15px;
-        background-color: rgba(169, 169, 169, 0.489) ;
+        background-color: rgba(169, 169, 169, 0.489);
         list-style: none;
         text-align: justify;
+      }
+
+      #preview {
+        max-height: 50vh;
+        max-width: 90%;
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 1rem;
+      }
+
+      #submit {
+        width: fit-content;
+      }
+
+      #upload_icon {
+        cursor: pointer;
+        margin-bottom: 1rem;
       }
     </style>
   </head>
@@ -64,20 +105,7 @@
       </h3>
     </header>
 
-    <main class="container">
-      <form class="mt-4" id="form">
-        <input type="file" name="image" id="image" />
-        <!-- <input type="text" name="name" id=""> -->
-      </form>
-      <br />
-
-      <div>
-        <img src="" alt="" id="preview" />
-        <h1 id="result"></h1>
-      </div>
-      <br />
-      <button class="btn btn-success" id="submit">Submit</button>
-
+    <main class="container-fluid">
       <div class="brain-desc">
         <div class="disease pitutary">
           <ul>
@@ -213,41 +241,70 @@
           </ul>
         </div>
       </div>
+
+      <div class="form-container">
+        <form class="mt-4" id="form">
+          <input type="file" name="image" id="image" hidden="hidden" />
+          <!-- <input type="text" name="name" id=""> -->
+        </form>
+
+        <div class="py-4 text-center">
+          <img src="" alt="" id="preview" />
+          <h2 class="mt-4" id="result"></h2>
+        </div>
+
+        <div>
+          <img
+            id="upload_icon"
+            width="64"
+            height="64"
+            src="https://img.icons8.com/external-xnimrodx-lineal-gradient-xnimrodx/64/external-upload-content-creator-xnimrodx-lineal-gradient-xnimrodx.png"
+            alt="external-upload-content-creator-xnimrodx-lineal-gradient-xnimrodx"
+          />
+        </div>
+
+        <button class="btn btn-success" id="submit">Submit</button>
+      </div>
     </main>
   </body>
 
   <script>
-    const btn = document.getElementById("submit");
-    btn.addEventListener("click", onSubmit);
+    const uploadIcon = document.getElementById('upload_icon');
+    uploadIcon.addEventListener('click', () => {
+      document.getElementById('image').click();
+    });
+
+    const btn = document.getElementById('submit');
+    btn.addEventListener('click', onSubmit);
     async function onSubmit() {
-      const form = document.getElementById("form");
-      const result = document.getElementById("result");
-      result.innerText = "Loading...";
+      const form = document.getElementById('form');
+      const result = document.getElementById('result');
+      result.innerText = 'Loading...';
 
       const formData = new FormData(form);
 
       const options = {
-        method: "POST",
-        body: formData,
+        method: 'POST',
+        body: formData
       };
 
-      const res = await fetch("/api", options);
+      const res = await fetch('/api', options);
       const response = await res.json();
 
       if (response.data) {
-        result.innerText = `The Output is ${response.data}`;
+        result.innerText = response.data;
       }
     }
 
-    const imageInput = document.getElementById("image");
-    imageInput.addEventListener("change", onChange);
+    const imageInput = document.getElementById('image');
+    imageInput.addEventListener('change', onChange);
     function onChange(e) {
-      document.getElementById("result").innerText = "";
-      const preview = document.getElementById("preview");
+      document.getElementById('result').innerText = '';
+      const preview = document.getElementById('preview');
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.addEventListener(
-        "load",
+        'load',
         () => {
           // convert image file to base64 string
           preview.src = reader.result;
