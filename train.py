@@ -153,9 +153,6 @@ def main(args):
     criterion = torch.nn.CrossEntropyLoss()
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_drop)
 
-    # abcd = select_dataset(args)
-    # print(abcd)
-    # dataset_train, dataset_val = abcd
     dataset_train, dataset_val = select_dataset(args)
 
     if args.distributed:
@@ -179,9 +176,10 @@ def main(args):
 
     print("Start training")
     start_time = time.time()
-    log = MetricLog()
+    log = MetricLog(dataset=args.dataset)
     record = log.record
     for epoch in range(args.start_epoch, args.epochs):
+        record['epoch'] = epoch
         if args.distributed:
             sampler_train.set_epoch(epoch)
         train_one_epoch(model, data_loader_train, optimizer, device, record, epoch)
