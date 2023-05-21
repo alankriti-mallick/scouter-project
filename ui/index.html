@@ -31,9 +31,32 @@
         align-items: center;
         justify-content: center;
       }
+
+      .disease{
+        margin-bottom: 50px;
+      }
+
+      .brain-desc{
+        margin-top: 50px;
+      }
+
+      .brain-desc h2{
+        padding: 15px;
+      }
+
+      .brain-desc li{
+        margin: 10px;
+        padding: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 15px;
+        background-color: rgba(169, 169, 169, 0.489) ;
+        list-style: none;
+        text-align: justify;
+      }
     </style>
   </head>
-  
+
   <body>
     <header>
       <h3 class="text-center">
@@ -54,25 +77,161 @@
       </div>
       <br />
       <button class="btn btn-success" id="submit">Submit</button>
+
+      <div class="brain-desc">
+        <div class="disease pitutary">
+          <ul>
+            <h2>PITUTARY TUMOR</h2>
+            <li>
+              <h5>Overview</h5>
+              <p>
+                Non-cancerous tumours in the pituitary gland that don't spread
+                beyond the skull. The pituitary gland is in the skull, below the
+                brain and above the nasal passages. A large tumour can press
+                upon and damage the brain and nerves. Vision changes or
+                headaches are symptoms. In some cases, hormones can also be
+                affected, interfering with menstrual cycles and causing sexual
+                dysfunction. Treatments include surgery and medication to block
+                excess hormone production or shrink the tumour. In some cases,
+                radiation may also be used.
+              </p>
+            </li>
+            <li>
+              <h5>Symptoms</h5>
+              <p>
+                Requires a medical diagnosis Vision changes or headaches are
+                symptoms. In some cases, hormones can also be affected,
+                interfering with menstrual cycles and causing sexual
+                dysfunction.
+              </p>
+              <p>
+                People may experience: Common symptoms: headache, inappropriate
+                breast milk production, irregular menstruation, or vision
+                disorder
+              </p>
+              <p>
+                For informational purposes only. Consult your local medical
+                authority for advice.
+              </p>
+            </li>
+            <li>
+              <h5>Treatment</h5>
+              <p>
+                Treatment depends on severity Treatments include surgery and
+                medication to block excess hormone production or shrink the
+                tumour. In some cases, radiation may also be used.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="disease meningioma">
+          <ul>
+            <h2>MENINGIOMA TUMOR</h2>
+            <li>
+              <h5>Overview</h5>
+              <p>
+                A meningioma is a tumor that arises from the meninges — the
+                membranes that surround the brain and spinal cord. Although not
+                technically a brain tumor, it is included in this category
+                because it may compress or squeeze the adjacent brain, nerves
+                and vessels. Meningioma is the most common type of tumor that
+                forms in the head.
+              </p>
+            </li>
+            <li>
+              <h5>Symptoms</h5>
+              <p>
+                Signs and symptoms of a meningioma typically begin gradually and
+                may be very subtle at first. Depending on where in the brain or,
+                rarely, spine the tumor is situated, signs and symptoms may
+                include:
+              </p>
+              <p>Changes in vision, such as seeing double or blurriness</p>
+              <p>Headaches, especially those that are worse in the morning</p>
+              <p>Hearing loss or ringing in the ears</p>
+              <p>Memory loss Loss of smell</p>
+              <p>Seizures Weakness in your arms or legs Language difficulty</p>
+            </li>
+
+            <li>
+              <h5>Treatment</h5>
+              <p>Treatments include surgery, radiation and chemotherapy.</p>
+            </li>
+          </ul>
+        </div>
+        <div class="disease glioma">
+          <ul>
+            <h2>GLIOMA TUMOR</h2>
+            <li>
+              <h5>Overview</h5>
+              <p>
+                lGioma is a growth of cells that starts in the brain or spinal
+                cord. The cells in a glioma look similar to healthy brain cells
+                called glial cells. Glial cells surround nerve cells and help
+                them function. As a glioma grows it forms a mass of cells called
+                a tumor. The tumor can grow to press on brain or spinal cord
+                tissue and cause symptoms.
+              </p>
+            </li>
+            <li>
+              <h5>Symptoms</h5>
+              <p>
+                Glioma symptoms depend on the location of the glioma. Symptoms
+                also may depend on the type of glioma, its size and how quickly
+                it's growing. Common signs and symptoms of gliomas include:
+              </p>
+              <p>
+                Headache, particularly one that hurts the most in the morning.
+              </p>
+              <p>Nausea and vomiting.</p>
+              <p>
+                Confusion or a decline in brain function, such as problems with
+                thinking and understanding information.
+              </p>
+              <p>Memory loss.</p>
+              <p>Personality changes or irritability.</p>
+              <p>
+                Vision problems, such as blurred vision, double vision or loss
+                of peripheral vision.
+              </p>
+              <p>Speech difficulties.</p>
+              <p>
+                Seizures, especially in someone who hasn't had seizures before.
+              </p>
+            </li>
+
+            <li>
+              <h5>Treatment</h5>
+              <p>
+                The mainstay of treatment for GBMs is surgery, followed by
+                radiation and chemotherapy. The primary objective of surgery is
+                to remove as much of the tumor as possible without injuring the
+                surrounding normal brain tissue needed for normal neurological
+                function.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </main>
   </body>
 
   <script>
-    const btn = document.getElementById('submit');
-    btn.addEventListener('click', onSubmit);
+    const btn = document.getElementById("submit");
+    btn.addEventListener("click", onSubmit);
     async function onSubmit() {
-      const form = document.getElementById('form');
-      const result = document.getElementById('result');
-      result.innerText = 'Loading...';
+      const form = document.getElementById("form");
+      const result = document.getElementById("result");
+      result.innerText = "Loading...";
 
       const formData = new FormData(form);
 
       const options = {
-        method: 'POST',
-        body: formData
+        method: "POST",
+        body: formData,
       };
 
-      const res = await fetch('/api', options);
+      const res = await fetch("/api", options);
       const response = await res.json();
 
       if (response.data) {
@@ -80,15 +239,15 @@
       }
     }
 
-    const imageInput = document.getElementById('image');
-    imageInput.addEventListener('change', onChange);
+    const imageInput = document.getElementById("image");
+    imageInput.addEventListener("change", onChange);
     function onChange(e) {
-      document.getElementById('result').innerText = '';
-      const preview = document.getElementById('preview');
+      document.getElementById("result").innerText = "";
+      const preview = document.getElementById("preview");
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.addEventListener(
-        'load',
+        "load",
         () => {
           // convert image file to base64 string
           preview.src = reader.result;
