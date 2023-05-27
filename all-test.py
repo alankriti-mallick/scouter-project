@@ -65,6 +65,10 @@ def main():
         image = sample["image"][0]
         label = sample["label"][0]
 
+        # 
+        if(label.int().item() == 1):
+            continue
+
         transform = transforms.Compose([
             transforms.Resize((args.img_size, args.img_size)),
             transforms.ToTensor(),

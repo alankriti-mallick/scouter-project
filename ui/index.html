@@ -279,6 +279,7 @@
     async function onSubmit() {
       const form = document.getElementById('form');
       const result = document.getElementById('result');
+      result.style.color = 'gray';
       result.innerText = 'Loading...';
 
       const formData = new FormData(form);
@@ -293,6 +294,10 @@
 
       if (response.data) {
         result.innerText = response.data;
+      }
+
+      if(response.color){
+        result.style.color = response.color;
       }
     }
 

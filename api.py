@@ -6,8 +6,19 @@ from test_custom import run_custom_test
 from typing import Annotated
 import os
 
-CLASS_NAMES = {3: "Pituitary Tumor detected", 0: "No tumor detected",
-               2: "Meningioma Tumor", 2: "Glioma Tumor detected"}
+CLASS_NAMES = {
+    0: "No tumor detected",
+    1: "Glioma Tumor detected",
+    2: "Meningioma Tumor",
+    3: "Pituitary Tumor detected"
+}
+
+COLORS = {
+    0: 'green',
+    1: 'red',
+    2: 'orange',
+    3: 'orangered'
+}
 
 app = FastAPI()
 app.mount("/ui", StaticFiles(directory="ui", html=True), name="ui")
@@ -31,9 +42,11 @@ async def root(
     result = run_custom_test(
         image='image.jpg', device='cpu', dataset="BT", batch_size=32)
     # print(result)
+    
+    color = COLORS[result]
     result = CLASS_NAMES[result]
 
     if os.path.exists("test-images/BT/image.jpg"):
         os.remove("test-images/BT/image.jpg")
 
-    return {"data": result}
+    return {"data": result, 'color': color}
